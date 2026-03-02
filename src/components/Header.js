@@ -37,15 +37,15 @@ const Header = () => {
         <button className="btn btn-sm btn-primary hidden lg:block">Começar Agora</button>
 
         {/* Ícone Menu Hambúrguer / Fechar */}
-        <div
-          onClick={() => setNavMobile(!navMobile)}
-          className="lg:hidden cursor-pointer flex flex-col gap-y-1.5 z-50"
-        >
-          <div className={`w-8 h-[2px] bg-green-400 transition-all ${navMobile ? 'rotate-45 translate-y-[8px]' : ''}`}></div>
-          <div className={`w-8 h-[2px] bg-green-400 transition-all ${navMobile ? 'opacity-0' : ''}`}></div>
-          <div className={`w-8 h-[2px] bg-green-400 transition-all ${navMobile ? '-rotate-45 -translate-y-[8px]' : ''}`}></div>
-        </div>
-      </div>
+<div
+  onClick={() => setNavMobile(!navMobile)}
+  className="lg:hidden cursor-pointer flex flex-col gap-y-1.5 z-50 p-2"
+>
+  {/* A classe 'z-50' garante que o ícone fique por cima do menu preto */}
+  <div className={`w-7 h-[2px] bg-green-400 transition-all ${navMobile ? 'rotate-45 translate-y-[8px]' : ''}`}></div>
+  <div className={`w-7 h-[2px] bg-green-400 transition-all ${navMobile ? 'opacity-0' : ''}`}></div>
+  <div className={`w-7 h-[2px] bg-green-400 transition-all ${navMobile ? '-rotate-45 -translate-y-[8px]' : ''}`}></div>
+</div>
 
       {/* Componente NavMobile */}
       <NavMobile navMobile={navMobile} setNavMobile={setNavMobile} />
