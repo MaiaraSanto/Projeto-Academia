@@ -36,7 +36,8 @@ const Header = () => {
         <button className="text-white text-sm font-bold hover:text-green-400 transition">Entrar</button>
         <button className="btn btn-sm btn-primary hidden lg:block">Começar Agora</button>
 
-        {/* Ícone Menu Hambúrguer / Fechar */}
+        
+{/* Ícone Menu Hambúrguer / Fechar */}
 <div
   onClick={() => setNavMobile(!navMobile)}
   className="lg:hidden cursor-pointer flex flex-col gap-y-1.5 z-50 p-2"
