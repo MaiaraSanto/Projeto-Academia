@@ -1,90 +1,62 @@
-import React from 'react';
-// Importação da logo conforme o caminho da sua árvore de pastas
-import Logo from '../assets/img/header/logo.svg'
+import React, { useState, useEffect } from 'react';
+
+// Importação dos componentes de navegação
+import Nav from './Nav';
+import NavMobile from './NavMobile';
+
+// Importação da Logo conforme sua estrutura
+import Logo from '../assets/img/header/logo.svg';
 
 const Header = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [navMobile, setNavMobile] = useState(false);
+
+  // Efeito para mudar o fundo do header ao rolar a página
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      window.scrollY > 80 ? setIsActive(true) : setIsActive(false);
+    });
+  });
+
   return (
-    <header style={styles.header}>
-      <div style={styles.container}>
-        {/* Lado Esquerdo: Logo */}
-        <div style={styles.logoContainer}>
-          <img src={Logo} alt="Gymme Logo" style={styles.logo} />
-        </div>
+    <header
+      className={`${
+        isActive ? 'bg-neutral-900 py-[16px]' : 'bg-transparent py-[20px]'
+      } fixed max-w-[1440px] left-0 right-0 mx-auto flex justify-between items-center px-[20px] lg:px-[80px] z-30 transition-all duration-300`}
+    >
+      {/* Logo */}
+      <a href="#home">
+        <img className="h-[30px]" src={Logo} alt="Gymme Logo" />
+      </a>
 
-        {/* Centro: Navegação */}
-        <nav style={styles.nav}>
-          <a href="#workouts" style={styles.navLink}>Funcionalidades</a>
-          <a href="#pricing" style={styles.navLink}>Preços</a>
-          <a href="#about" style={styles.navLink}>Sobre</a>
-        </nav>
+      {/* Nav Desktop (Escondida no Mobile) */}
+      <Nav />
 
-        {/* Lado Direito: Call to Action (CTA) */}
-        <div style={styles.ctaContainer}>
-          <button style={styles.loginBtn}>Entrar</button>
-          <button style={styles.registerBtn}>Começar Agora</button>
+      {/* Botões da Direita (Login + Hambúrguer) */}
+      <div className="flex items-center gap-x-4 lg:gap-x-9">
+        <button className="text-white text-sm font-black uppercase italic hover:text-green-400 transition">
+          Log In
+        </button>
+        <button className="btn btn-sm btn-primary hidden lg:block">
+          Matricular-se
+        </button>
+
+        {/* Ícone do Menu Hambúrguer (Apenas Mobile) */}
+        <div
+          onClick={() => setNavMobile(!navMobile)}
+          className="lg:hidden cursor-pointer flex flex-col gap-y-1.5 z-50"
+        >
+          {/* Linhas do Hambúrguer com Animação para "X" */}
+          <div className={`w-8 h-[2px] bg-green-400 transition-all duration-300 ${navMobile ? 'rotate-45 translate-y-[8px]' : ''}`}></div>
+          <div className={`w-8 h-[2px] bg-green-400 transition-all duration-300 ${navMobile ? 'opacity-0' : 'opacity-100'}`}></div>
+          <div className={`w-8 h-[2px] bg-green-400 transition-all duration-300 ${navMobile ? '-rotate-45 -translate-y-[8px]' : ''}`}></div>
         </div>
       </div>
+
+      {/* Menu Mobile Overlay */}
+      <NavMobile navMobile={navMobile} setNavMobile={setNavMobile} />
     </header>
   );
-};
-
-// Estilização inline para facilitar (recomendo mover para um arquivo .css ou Styled Components depois)
-const styles = {
-  header: {
-    width: '100%',
-    backgroundColor: '#0a0a0a', // Fundo escuro premium
-    padding: '20px 0',
-    borderBottom: '1px solid #222',
-    position: 'sticky',
-    top: 0,
-    zIndex: 1000,
-  },
-  container: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0 20px',
-  },
-  logo: {
-    height: '35px', // Tamanho ideal para header
-    display: 'block',
-  },
-  nav: {
-    display: 'flex',
-    gap: '30px',
-  },
-  navLink: {
-    color: '#ccc',
-    textDecoration: 'none',
-    fontSize: '14px',
-    fontWeight: '500',
-    transition: 'color 0.3s',
-  },
-  ctaContainer: {
-    display: 'flex',
-    gap: '15px',
-    alignItems: 'center',
-  },
-  loginBtn: {
-    backgroundColor: 'transparent',
-    color: '#fff',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: '14px',
-  },
-  registerBtn: {
-    backgroundColor: '#4ade80', // Verde vibrante para combinar com "fitness"
-    color: '#000',
-    border: 'none',
-    padding: '10px 20px',
-    borderRadius: '8px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    fontSize: '14px',
-    transition: 'transform 0.2s',
-  },
 };
 
 export default Header;
